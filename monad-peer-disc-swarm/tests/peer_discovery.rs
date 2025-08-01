@@ -132,10 +132,7 @@ fn generate_name_record(keypair: &KeyPairType) -> MonadNameRecord<SignatureType>
     let ipaddr_v4 = Ipv4Addr::from_bits(u32::from_be_bytes(hash.0[28..32].try_into().unwrap()));
     assert_ne!(ipaddr_v4, Ipv4Addr::UNSPECIFIED);
 
-    let name_record = NameRecord {
-        address: SocketAddrV4::new(ipaddr_v4, 8000),
-        seq: 0,
-    };
+    let name_record = NameRecord::new(ipaddr_v4, 8000, 8000, 0, 0);
     let mut encoded = Vec::new();
     name_record.encode(&mut encoded);
     let signature = SignatureType::sign::<signing_domain::NameRecord>(&encoded, keypair);
@@ -364,10 +361,13 @@ fn test_update_name_record() {
         .expect("Node0 state should exist");
 
     // create new name record for Node0 with new IP and incremented seq number
-    let new_name_record = NameRecord {
-        address: SocketAddrV4::from_str("2.2.2.2:8000").unwrap(),
-        seq: 1,
-    };
+    let new_name_record = NameRecord::new(
+        *SocketAddrV4::from_str("2.2.2.2:8000").unwrap().ip(),
+        8000,
+        8000,
+        0,
+        1,
+    );
     let mut encoded = Vec::new();
     new_name_record.encode(&mut encoded);
     let signature = SignatureType::sign::<signing_domain::NameRecord>(&encoded, node_0_key);
