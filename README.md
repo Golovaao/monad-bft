@@ -75,7 +75,7 @@ This will start a single node with chain ID of `20143` and RPC at `localhost:808
 > To avoid a lengthy rebuild after shutting down the docker containers, you can call `nets/run.sh` with the `--cached-build <full path to build dir>` arg, e.g.
 >
 > ```bash
-> single-node$ nets/run.sh --cached-build [...]/monad-bft/docker/single-node/logs/20250929_082118-2d71738c8dfba6d2
+> single-node$ nets/run.sh --cached-build [...]/monad-bft/docker/single-node/logs/20250929_082118-2d71738c8dfba6d2..
 > ```
 
 #### Using Pre-built Images
