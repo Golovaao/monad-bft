@@ -1,4 +1,4 @@
-# Monad BFT
+# Monad BF
 
 ## Overview
 
